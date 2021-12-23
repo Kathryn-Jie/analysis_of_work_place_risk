@@ -145,9 +145,9 @@ server <- function(input, output,session) {
     options = list(
       searching = FALSE,
       paging = TRUE,
-      fixedColumns = TRUE,
+      #fixedColumns = TRUE,
       #autoWidth = TRUE,
-      ordering = FALSE,
+      #ordering = FALSE,
       dom = 'Bfrtip',
       buttons = c('copy', 'csv', 'excel','pdf')
     ),
