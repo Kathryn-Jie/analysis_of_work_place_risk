@@ -1,28 +1,21 @@
 ---
 title: "Overview"
-output: html_fragment
-
+output: html_document
 ---
 
-### **Background**
+### <u>Background</u>
 
-***
-
-xxx
+Employees quit for a variety of reasons. One of the main reasons is an unsafe work environment. In addition to compensating employees fairly, and treating them with a sense of dignity and equality, employers are obligated to maintain a safe workplace for their employees, so that they can focus on their job responsibilities rather than worrying about the work environment. However, many employers fail to do so, and employees are injured every year as a result. According to the International Labour Organisation, a worker dies every 15 seconds from a work-related accident or disease around the world. A work environment that is unsafe not only can cause significant disruption and cost to both employer and employee, but also put employer at risk of workplace morale, productivity, turnover, and reputation. 
 
 <br><br>
 
-### **Objectives**
+### <u>Objectives</u>
 
-***
-
-xxx
+To identify workplace risk of injuries and determine whether you as an employee may be at risk. This could provide an early warning signal to both employer and employee especially industries with disproportionately high fatality rates. For long term measure, establishing a safe workplace is one of the most effective ways of protecting employer’s most valuable asset which is your employees. 
 
 <br><br>
 
-### **How It Works**
+### <u>How It Works</u>
 
-***
-
-xxx
+This app consists of x tabs, which are:
 

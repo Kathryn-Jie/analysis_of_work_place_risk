@@ -36,7 +36,6 @@ ui <- dashboardPage(skin = "black",
     tabItems(
       #Overview tab content
       tabItem(tabName = "view_tab",
-              h3("Overview"),
               fluidRow(
                 includeHTML("overview.html")
               )
