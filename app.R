@@ -147,13 +147,10 @@ ui <- dashboardPage(skin = "black",
                   valueBoxOutput("info_1"),
                   valueBoxOutput("info_2"),
                   valueBoxOutput("info_3"),
+                  valueBoxOutput("dash_variable", width = 12),
                   
                   br(),
-                  box(
-                    width=12,
-                    background='black',
-                    h4(textOutput("dash_variable"), color="white")
-                  ),
+
                   box(
                     width=12,
                     plotlyOutput("plot_dash_1", width = "auto")
@@ -200,7 +197,11 @@ server <- function(input, output,session) {
   
   output$info_6 <- renderValueBox({
     valueBox(
-      "Data Source", paste0("https://data.gov.sg"), icon = icon("download"),
+      "Data Source", 
+      helpText(
+        tags$a("Workplace Injuries, Annual",
+               href = "https://data.gov.sg/dataset/workplace-injuries-annual?view_id=0bc3821d-95c6-4534-8062-9cbd8a540586&resource_id=109b3957-8826-4d92-b47e-01f58ec22cf3")), 
+        icon = icon("download"),
       color = "black"
     )
   })
@@ -231,8 +232,10 @@ server <- function(input, output,session) {
   })
   
   
-  output$dash_variable<-renderText({paste("Data Variable :",toString(names(data)))})
-  
+  output$dash_variable <- renderValueBox({
+    valueBox(
+      "Data Variables", "Year, Degree of Injury, Industry, Sub Industry, Incident Type, 
+      Incident Agent, Incident Agent Sub Type, Number of Injuries", color = "black")})
   
   output$plot_dash_1 <- renderPlotly({
     
