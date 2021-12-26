@@ -1,6 +1,6 @@
 ---
 title: "Overview"
-output: html_document
+output: html_fragment
 ---
 
 ### <u>Background</u>

@@ -24,22 +24,20 @@ ui <- dashboardPage(skin = "black",
     sidebarMenu(
       menuItem("Overview", tabName = "view_tab", icon = icon("user-circle")),
       menuItem("Dashboard", tabName = "dash_tab", icon = icon("home")),
+      menuItem("Analysis", tabName = "ana_tab", icon = icon("book-open")),
       menuItem("Data Table", tabName = "dt_tab", icon = icon("table")),
-      menuItem("Graph Plot", tabName = "plot_tab", icon = icon("chart-bar")),
-      menuItem("Analysis", tabName = "ana_tab", icon = icon("book-open"))
-      
-      
+      menuItem("Graph Plot", tabName = "plot_tab", icon = icon("chart-bar"))
     )
   ),
   
   dashboardBody(
     tabItems(
+      
       #Overview tab content
       tabItem(tabName = "view_tab",
               fluidRow(
-                includeHTML("overview.html")
-              )
-            ),
+                includeHTML("overview.html"))
+              ),
       
       # Data table tab content
       tabItem(tabName = "dt_tab",
@@ -54,15 +52,12 @@ ui <- dashboardPage(skin = "black",
               selectInput("num_var_4", "Incident Type", choices =  c("All",sort(unique(as.character(data$incident_type))))),
               selectInput("num_var_5", "Incident Agent", choices =  c("All",sort(unique(as.character(data$incident_agent))))),
               selectInput("num_var_6", "Incident Agent Sub Type", choices =  c("All",sort(unique(as.character(data$incident_agent_sub_type))))),
-              ),
+                ),
               box(
                 width=9,
                 DT::dataTableOutput('contents'))
-              )
-              
-              
-              
-      ),
+                      )
+            ),
       
       # Graph tab content
       tabItem(tabName = "plot_tab",
@@ -77,8 +72,7 @@ ui <- dashboardPage(skin = "black",
                   selectInput("num_var_15", "Incident Type", choices =  c("All",sort(unique(as.character(data$incident_type))))),
                   selectInput("num_var_16", "Incident Agent", choices =  c("All",sort(unique(as.character(data$incident_agent))))),
                   selectInput("num_var_17", "Incident Agent Sub Type", choices =  c("All",sort(unique(as.character(data$incident_agent_sub_type)))))
-                  
-                ),
+                    ),
                 box(
                   width=9,
                   height=580,
@@ -99,12 +93,9 @@ ui <- dashboardPage(skin = "black",
                     selectInput("num_var_8", "Table Variable X", choices = names(data)),
                     textOutput("output_msg", inline = FALSE),
                     plotlyOutput("plot2", width = "auto")
-                    
-                  )
-                 )
-                
-
-      ),
+                    ))
+          ),
+      
       # Analysis tab content
       tabItem(tabName = "ana_tab",
               h3("Findings"),
@@ -115,15 +106,14 @@ ui <- dashboardPage(skin = "black",
                 h4(textOutput("output_msg_3", inline = FALSE), style="text-align: center;"),
                 br(),
                 plotlyOutput("plot3", width = "auto")
-              ),
+                ),
               box(
                 width=12,
                 height=500,
                 h4(textOutput("output_msg_4", inline = FALSE), style="text-align: center;"),
                 br(),
                 plotlyOutput("plot4", width = "auto")
-              ),
-              
+                 ),
               box(
                 width=12,
                 height=1000,
@@ -134,8 +124,7 @@ ui <- dashboardPage(skin = "black",
                 plotlyOutput("plot5_2", width = "auto")
               ),
               )
-      
-      ),
+           ),
       
       # Dashboard tab content
       tabItem(tabName ="dash_tab",
@@ -147,31 +136,20 @@ ui <- dashboardPage(skin = "black",
                   valueBoxOutput("info_2"),
                   valueBoxOutput("info_3"),
                   valueBoxOutput("dash_variable", width = 12),
-                  
                   br(),
-
                   box(
                     width=12,
                     plotlyOutput("plot_dash_1", width = "auto")
-                  )
-                  
-                )
-        )
-      
-      
-      
+                     ))
+              )
+    
     )
   )
-  
-  
 )
 
 # Define server logic required to draw a histogram
 server <- function(input, output,session) {
-  
-  
-  
-  
+ 
   data2<-data
   data3<-data
   data4<-data
@@ -185,14 +163,12 @@ server <- function(input, output,session) {
     )
   })
   
-  
   output$info_5 <- renderValueBox({
     valueBox(
       "Title", paste0("Analysis of Workplace Risk"), icon = icon("car-crash"),
       color = "black"
     )
   })
-  
   
   output$info_6 <- renderValueBox({
     valueBox(
@@ -205,15 +181,12 @@ server <- function(input, output,session) {
     )
   })
   
-  
-  
   output$info_1 <- renderValueBox({
     valueBox(
       "Observation", paste0(nrow(data)," Rows"), icon = icon("align-justify"),
       color = "black"
     )
   })
-  
   
   output$info_2 <- renderValueBox({
     valueBox(
@@ -222,14 +195,12 @@ server <- function(input, output,session) {
     )
   })
   
-  
   output$info_3 <- renderValueBox({
     valueBox(
       "Data Info", "Figures are victim-based", icon = icon("calendar-alt"),
       color = "black"
     )
   })
-  
   
   output$dash_variable <- renderValueBox({
     valueBox(
@@ -252,21 +223,7 @@ server <- function(input, output,session) {
     bar_plt <- bar_plt + scale_x_continuous(labels = x_axis_labels, breaks = x_axis_labels)
     ggplotly(bar_plt)
     
-    
   })
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
   
   output$contents <- DT::renderDataTable(
     DT::datatable({
@@ -319,16 +276,10 @@ server <- function(input, output,session) {
     
   )
   
-  
-  
   observe({
     colnames(data2) <- c("Year","Degree Of Injury","Industry","Sub-Industry","Incident Type","Incident Agent","Incident Agent Sub Type","No of Injuries")
     updateSelectInput(session, 'num_var_8', choices = colnames(data2)[colnames(data2) != "No of Injuries"])
-    
-    
-      
   }) 
-  
   
   geom.text.size = 3
   theme.size = (14/5) * geom.text.size
@@ -356,7 +307,6 @@ server <- function(input, output,session) {
     
     title_ext <- NULL
    
-    
     if (input$num_var_11 != "All") {
       data2 <- data2[data2$year == input$num_var_11,]
       title_ext<-paste(title_ext,"for",input$num_var_11 )
@@ -398,8 +348,6 @@ server <- function(input, output,session) {
       title_ext<-paste(title_ext,"in which",input$num_var_17,"As Incident Agent Sub Type" )
       
     }
-    
-    
     
     title_ext<-wrapper(title_ext,100)
     input_p <- to_snake_case(input$num_var_8)
@@ -448,10 +396,8 @@ server <- function(input, output,session) {
         bar_plt <- bar_plt + ggtitle(paste("The Graph of",input$num_var_8 , "vs No of Injuries \n",title_ext))
         ggplotly(bar_plt, width = (0.6*as.numeric(input$dimension[1])), height = (0.6*as.numeric(input$dimension[2])))
         
-        
       })   
       output$output_msg<-NULL
-      
       
     } else if(nrow(data2)<=0){
       #print("row is empty")
@@ -460,11 +406,7 @@ server <- function(input, output,session) {
     }
   })
   
-  
-  
   output$plot3 <- renderPlotly({
-    
-    
     
     df <- data3
     
@@ -482,12 +424,9 @@ server <- function(input, output,session) {
     bar_plt <- bar_plt + ggtitle(paste("The Graph of Industry vs No of Injuries"))
     ggplotly(bar_plt)
     
-    
   })
   
   output$output_msg_3 <-renderText({paste("Which industries have the highest numbers of workplace injuries?  ")})
-  
-  
   
   output$plot4 <- renderPlotly({
     data_full <- reactiveValues()
@@ -495,13 +434,11 @@ server <- function(input, output,session) {
     data_major <- data4[data4$degree_of_injury =="Major",]
     data_full  <- rbind(data_fatal, data_major)
     
-    
     df <- data_full
     bar_plt <- ggplot(df, aes_string(x=reorder(df[["industry"]],df$no_of_injuries,FUN=sum), y = df$no_of_injuries, fill="degree_of_injury"))+
       theme_minimal() +
       theme(legend.text=element_text(size=5))+
       
-  
       geom_bar(stat="summary", fun=sum, width=0.5) + ylab("No of Injuries") +
       xlab("Industry") +
       coord_flip()+
@@ -512,12 +449,10 @@ server <- function(input, output,session) {
     bar_plt <- bar_plt + ggtitle(paste("The Graph of Industry vs No of Injuries for Fatal and Major Injuries Cases"))
     ggplotly(bar_plt)
     
-    
   })
   
   output$output_msg_4 <-renderText({paste("Which industries have the highest number of fatal and major workplace injuries?")})
-  
-  
+
   output$plot5_1 <- renderPlotly({
  
     df <- data5_1
@@ -535,9 +470,7 @@ server <- function(input, output,session) {
     bar_plt <- bar_plt + ggtitle(paste("The Graph of Incident Type vs No of Injuries "))
     ggplotly(bar_plt)
     
-    
   })
-  
   
   output$plot5_2 <- renderPlotly({
     
@@ -556,11 +489,9 @@ server <- function(input, output,session) {
     bar_plt <- bar_plt + ggtitle(paste("The Graph of Incident Agent vs No of Injuries "))
     ggplotly(bar_plt)
     
-    
   })
   
   output$output_msg_5 <-renderText({paste("What are the most common incident types/agents that cause injuries?")})
-  
   
 }
 
