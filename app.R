@@ -19,9 +19,10 @@ data <- read.csv("data.csv")
 
 # Define UI for application that draws a histogram
 ui <- dashboardPage(skin = "black",
-  dashboardHeader(),
+  dashboardHeader(title = "Workplace Risk"),
   dashboardSidebar(
     sidebarMenu(
+      menuItem("Overview", tabName = "view_tab", icon = icon("user-circle")),
       menuItem("Dashboard", tabName = "dash_tab", icon = icon("home")),
       menuItem("Data Table", tabName = "dt_tab", icon = icon("table")),
       menuItem("Graph Plot", tabName = "plot_tab", icon = icon("chart-bar")),
@@ -33,7 +34,15 @@ ui <- dashboardPage(skin = "black",
   
   dashboardBody(
     tabItems(
-      # First tab content
+      #Overview tab content
+      tabItem(tabName = "view_tab",
+              h3("Overview"),
+              fluidRow(
+                includeHTML("overview.html")
+              )
+            ),
+      
+      # Data table tab content
       tabItem(tabName = "dt_tab",
               h3("Data Table"),
               fluidRow(
@@ -56,7 +65,7 @@ ui <- dashboardPage(skin = "black",
               
       ),
       
-      # Second tab content
+      # Graph tab content
       tabItem(tabName = "plot_tab",
               h3("Graph"),
               fluidRow(
@@ -97,7 +106,7 @@ ui <- dashboardPage(skin = "black",
                 
 
       ),
-      # Second tab content
+      # Analysis tab content
       tabItem(tabName = "ana_tab",
               h3("Findings"),
               fluidRow(
@@ -129,7 +138,7 @@ ui <- dashboardPage(skin = "black",
       
       ),
       
-      # 4 tab content
+      # Dashboard tab content
       tabItem(tabName ="dash_tab",
                 fluidRow(
                   valueBoxOutput("info_4"),
