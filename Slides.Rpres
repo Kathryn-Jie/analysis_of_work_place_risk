@@ -22,7 +22,6 @@ Group C (Cyber Native)<br>
 Introduction 
 ========================================================
 type:prompt
-class: small-code
 
 **About the App**<br>
 <xsmall>An interactive Shiny application with several graphs that visualize the relative risks of the industries and the incident agents that cause injuries at workplace.</xsmall>
@@ -61,7 +60,7 @@ type:prompt
 **5. Presenting Data**<br>
 <xsmall>Preview of Shiny App:-</xsmall><br>
 <xsmall>- [Shiny App](https://aniyeap.shinyapps.io/analysis_of_work_place_risk/)</xsmall><br>
-<xsmall>- [Code](https://github.com/aniyeap/analysis_of_work_place_risk)</xsmall>
+<xsmall>- [Code](https://github.com/aniyeap/analysis_of_work_place_risk)</xsmall><br>
 
 Features
 ========================================================
