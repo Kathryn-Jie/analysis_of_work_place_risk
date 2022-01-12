@@ -17,7 +17,7 @@ Link to App: <a href="https://aniyeap.shinyapps.io/analysis_of_work_place_risk/"
 It consists 3 tabs, which are:
 - Dashboard: To introduce the basic info of the app
 - Risk Insight: To perform exploratory data analysis
-- Explore Risk: An interactive tab to show the analysis of workplace risk by selecting industry catogory, work activity and work tool.
+- Explore Risk: An interactive tab to show the analysis of workplace risk by selecting industry catogory, work activity and work tool
 
 ### Data Source
 Link to Data:<a href="https://data.gov.sg/dataset/workplace-injuries-annual"> Workplace Injuries by Industry and Incident Types Dataset</a>
