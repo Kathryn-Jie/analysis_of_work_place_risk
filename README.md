@@ -11,7 +11,7 @@ People often enter their industries based on career prospects, monetary and educ
 ### About The App
 It is an interactive Shiny application with several visualization graphs that perform the relative risks of the industries and the incident agents that causes injuries.
 
-Link to App: 
+Link to App: <a href="https://aniyeap.shinyapps.io/analysis_of_work_place_risk/"> Shiny App</a>
 
 ### Features
 It consists 3 tabs, which are:
@@ -20,6 +20,6 @@ It consists 3 tabs, which are:
 - Explore Risk: An interactive tab to show the analysis of workplace risk by selecting industry catogory, work activity and work tool.
 
 ### Data Source
-Link to Data: Workplace Injuries by Industry and Incident Types Dataset
+Link to Data:<a href="https://data.gov.sg/dataset/workplace-injuries-annual"> Workplace Injuries by Industry and Incident Types Dataset</a>
 
 ### Remarks
