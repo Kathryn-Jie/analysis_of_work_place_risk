@@ -5,19 +5,35 @@ xsmall {
 }
 </style>
 
-Analysis of Workplace Risk
 ========================================================
 transition:rotate
-<small>
-WQD7001 Group Assignment<br>
+css: css-file.css
+<style>
+/* Your other css */
+.section .reveal .state-background {
+    background: url(https://www.hrdept.co.uk/wp-content/uploads/2019/10/Wet-Floor-Hazard.jpg);
+    background-position: center center;
+    background-attachment: fixed;
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+    opacity: 0.5;
+}
+div.white { background-color:#ffffff; border-radius: 5px; padding: 20px; opacity: 0.6;font-weight: bold; position: absolute; top: 20%; width: 100%;}
+</style>
+<div class = "white">
+Analysis of Workplace Risk<br>
+<br />
+WQD7001 Group Assignment
+<br />
 Group C (Cyber Native)<br>
-  - Clement Lee
-  - Lee Mun Mun
-  - Lee Ying Qiu
-  - Ng Sin Yu
-  - Siti Nur Ani Yeap
-  - Tey Yi Jie
-</small>
+<br />
+  - Clement Lee &nbsp S2128268<br>
+  - Lee Mun Mun &nbsp S2112842<br>
+  - Lee Ying Qiu &nbsp 17108552<br>
+  - Ng Sin Yu &nbsp S2111068<br>
+  - Siti Nur Ani Yeap &nbsp 17218658<br>
+  - Tey Yi Jie &nbsp 17081752<br>
+</div>
 
 Introduction 
 ========================================================
@@ -58,7 +74,7 @@ type:prompt
 **4. Analysing Data**<br>
 <xsmall>Exploratory data analysis - plotting and filtering the number of injuries based on industries, degrees injury, incident agents and correlation features.</xsmall><br>
 **5. Presenting Data**<br>
-<xsmall>Preview of Shiny App:-</xsmall><br>
+<xsmall>Preview of our Shiny App:-</xsmall><br>
 <xsmall>- [Shiny App](https://aniyeap.shinyapps.io/analysis_of_work_place_risk/)</xsmall><br>
 <xsmall>- [Code](https://github.com/aniyeap/analysis_of_work_place_risk)</xsmall><br>
 
