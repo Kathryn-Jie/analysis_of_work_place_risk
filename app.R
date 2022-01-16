@@ -164,7 +164,7 @@ ui <- dashboardPage(skin = "black",
                                       ),
                                     tabPanel("Degree of Injury", 
                                       column( width=12,
-                                        plotlyOutput("plot_injury_insight"),
+                                        plotlyOutput("plot_injury_insight",height =1000),
                                       ),
                                       h3(align="center" , "   "),
                                       
@@ -176,7 +176,7 @@ ui <- dashboardPage(skin = "black",
                                       ),
                                     tabPanel("Agency of Injury", height="auto",
                                       br(),
-                                      plotlyOutput("plot_incident_type", width = "auto"),
+                                      plotlyOutput("plot_incident_type", width = "auto",height=1000),
                                       box(width=12),
                                       column( width=4,
                                       selectInput("degree_incident", "Refine Incident ", choices =  c("Suffocation")),
@@ -557,16 +557,16 @@ server <- function(input, output,session) {
 
     bar_plt <- ggplot(df_4, aes_string(x=reorder_industry, y = df_4$Freq ,fill=as.factor(df_4$degree_of_injury)))+
       theme_minimal() +
-      theme(axis.text.y=element_text(size=rel(0.5)))+
-      geom_bar(stat="identity" ,width=0.7, position=position_dodge(0.5)) + 
+      theme(axis.text.y=element_text(size=rel(1.5)))+
+      geom_bar(aes(text = paste(Freq,"% of Incidents from",industry,"Industry are",degree_of_injury,"Incidents.")),stat="identity" ,width=0.7, position=position_dodge(0.75)) + 
       xlab("") +
-      ylab("Percentage/ Industry") +
-      scale_x_reordered() +
-      theme(text = element_text(size=theme.size))+
+      ylab("Degree of Injury By Industry") +
+      theme(text = element_text(size=theme.size),strip.text = element_text(size=rel(1.75)))+
+      scale_x_reordered()+
       coord_flip()
     bar_plt <- bar_plt + facet_grid(degree_of_injury~., scales = "free")
-    bar_plt <- bar_plt + scale_fill_manual(values=c("#ec0d0d", "#181818","#bbbbbb"), name = NULL)
-    ggplotly(bar_plt) 
+    bar_plt <- bar_plt + scale_fill_manual(values=c("#ec0d0d", "#181818","#bbbbbb"), name =NULL)
+    ggplotly(bar_plt,tooltip = c('text'))
     
   })
 
@@ -586,7 +586,8 @@ server <- function(input, output,session) {
       df$degree_of_injury<- factor(df$degree_of_injury, levels = df$degree_of_injury)
       fig_2_2 <- plot_ly(df, labels = ~degree_of_injury, values = ~no_of_injuries, 
           type = "pie",
-          marker = list(colors = c("#bbbbbb", "#181818","#ec0d0d"))
+          marker = list(colors = c("#bbbbbb", "#181818","#ec0d0d")),
+          hovertemplate = "<br>Percentage of %{label} Incidents: %{percent}</br>Total Number of %{label} Incidents: %{value}"
           )
       fig_2_2 <- fig_2_2 %>% layout(
           
@@ -610,23 +611,21 @@ server <- function(input, output,session) {
     df_4 <- aggregate(no_of_injuries~ incident_type+ degree_of_injury, data=df_4, sum)
     df_4 <- transform(df_4, Freq = ave(no_of_injuries, incident_type, FUN = function(x) round(x/sum(x),3)*100))
     df_4 <- as.data.frame(df_4)
-
-    print(df_4)
     reorder_w<- reorder_within(df_4$incident_type,df_4$Freq,df_4$degree_of_injury)
     # print(reorder_industry)
 
     bar_plt <- ggplot(df_4, aes_string(x=reorder_w, y = df_4$Freq ,fill=as.factor(df_4$degree_of_injury)))+
       theme_minimal() +
-      theme(axis.text.y=element_text(size=rel(0.5)))+
-      geom_bar(stat="identity" ,width=0.7, position=position_dodge(0.5)) + 
+      theme(axis.text.y=element_text(size=rel(1.5)))+
+      geom_bar(aes(text = paste(Freq,"% of",incident_type,"Incidents are",degree_of_injury,"Incidents.")),stat="identity" ,width=0.7, position=position_dodge(width=0.75)) + 
       xlab("") +
-      ylab("Percentage/ Incident") +
+      ylab("Percentage of Severity of Each Incident Type") +
       scale_x_reordered() +
-      theme(text = element_text(size=theme.size))+
+      theme(text = element_text(size=theme.size),strip.text = element_text(size=rel(1.75)))+
       coord_flip()
     bar_plt <- bar_plt + facet_grid(degree_of_injury~., scales = "free")
     bar_plt <- bar_plt + scale_fill_manual(values=c("#ec0d0d", "#181818","#bbbbbb"), name = NULL)
-    ggplotly(bar_plt) 
+    ggplotly(bar_plt,tooltip = c('text')) 
   })
 
 
