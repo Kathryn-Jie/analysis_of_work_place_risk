@@ -125,7 +125,7 @@ ui <- dashboardPage(skin = "black",
                                       side = "left", height = "auto",
                                       selected = "Risk by Year",
                                       tabPanel("Risk by Year", 
-                                               plotlyOutput("plot_risk_year", width = "auto")
+                                               plotlyOutput("plot_risk_year", width = "auto",height=800)
                                                ),
                                       
                                       tabPanel("Risk by Level of Injury", 
@@ -133,7 +133,7 @@ ui <- dashboardPage(skin = "black",
                                                ),
                                       
                                       tabPanel("Risk by Past Incident" , 
-                                               plotlyOutput("plot_past_incident", width = "auto")
+                                               plotlyOutput("plot_past_incident", width = "auto",height=800)
                                                ),
 
                                       tabPanel("View the Data", 
@@ -169,7 +169,7 @@ ui <- dashboardPage(skin = "black",
                                       h3(align="center" , "   "),
                                       
                                       box( width=12,
-                                        selectInput("degree_industry", "Refine Degree by Industry", choices =  c("Marine")),
+                                        selectInput("degree_industry", "Refine Degree of Injury by Industry", choices =  c("Marine")),
                                         plotlyOutput("plot_injury_insight_pie", inline=TRUE),
                                       )
 
@@ -179,10 +179,10 @@ ui <- dashboardPage(skin = "black",
                                       plotlyOutput("plot_incident_type", width = "auto",height=1000),
                                       box(width=12),
                                       column( width=4,
-                                      selectInput("degree_incident", "Refine Incident ", choices =  c("Suffocation")),
+                                      selectInput("degree_incident", "Refine Incident Type", choices =  c("Suffocation")),
                                       ),
                                       column( width=3,
-                                      selectInput("degree_incident_2", "Refine Injury ", choices =  c("Fatal")),
+                                      selectInput("degree_incident_2", "Refine Degree of Injury", choices =  c("Fatal")),
                                       ),
                                       plotlyOutput("plot_incident_insight_pie", inline=TRUE),
                                       ),
@@ -461,7 +461,7 @@ server <- function(input, output,session) {
       
       bar_plt <- bar_plt + scale_x_continuous(labels = x_axis_labels, breaks = x_axis_labels)
       bar_plt <- bar_plt + scale_fill_grey(name = NULL)
-      ggplotly(bar_plt)
+      ggplotly(bar_plt,tooltip = c('x'))
       
     })
     
@@ -473,7 +473,8 @@ server <- function(input, output,session) {
       df$degree_of_injury<- factor(df$degree_of_injury, levels = df$degree_of_injury)
       fig_2_2 <- plot_ly(df, labels = ~degree_of_injury, values = ~no_of_injuries, 
           type = "pie",
-          marker = list(colors = gray.colors(3))
+          marker = list(colors = gray.colors(3)),
+          hovertemplate = "<br>Percentage of %{label} Incidents: %{percent}</br>Total Number of %{label} Incidents: %{value}"
           )
       fig_2_2 <- fig_2_2 %>% layout(
           
@@ -495,15 +496,15 @@ server <- function(input, output,session) {
       
       bar_plt <- ggplot(df, aes_string(x =df$incident_type, y = df$no_of_injuries, fill="incident_type"))+
         theme_minimal() +
-        theme(legend.text=element_text(size=5))+
-        geom_bar(stat="identity", width=0.5) + 
+        theme(legend.text=element_text(size=rel(1)))+
+        geom_bar(aes(text = paste("Total Number of Incidents from",incident_type,"are",no_of_injuries)),stat="identity", width=0.5) + 
         ylab("No of Injuries") +
         xlab(to_upper_camel_case("incident_type", sep_out = " ")) +
-        theme(text = element_text(size=theme.size))
+        theme(text = element_text(size=theme.size),strip.text = element_text(size=rel(1.75)))
       
       bar_plt <- bar_plt + scale_x_discrete(label = " ")
       bar_plt <- bar_plt + scale_fill_grey(name = NULL)
-      ggplotly(bar_plt)
+      ggplotly(bar_plt,tooltip = c('text'))
       
     })
   })
@@ -560,7 +561,7 @@ server <- function(input, output,session) {
       theme(axis.text.y=element_text(size=rel(1.5)))+
       geom_bar(aes(text = paste(Freq,"% of Incidents from",industry,"Industry are",degree_of_injury,"Incidents.")),stat="identity" ,width=0.7, position=position_dodge(0.75)) + 
       xlab("") +
-      ylab("Degree of Injury By Industry") +
+      ylab("Percentage of Degree of Injury By Industry") +
       theme(text = element_text(size=theme.size),strip.text = element_text(size=rel(1.75)))+
       scale_x_reordered()+
       coord_flip()
@@ -619,7 +620,7 @@ server <- function(input, output,session) {
       theme(axis.text.y=element_text(size=rel(1.5)))+
       geom_bar(aes(text = paste(Freq,"% of",incident_type,"Incidents are",degree_of_injury,"Incidents.")),stat="identity" ,width=0.7, position=position_dodge(width=0.75)) + 
       xlab("") +
-      ylab("Percentage of Severity of Each Incident Type") +
+      ylab("Percentage of Degree of Injury By Incident Type") +
       scale_x_reordered() +
       theme(text = element_text(size=theme.size),strip.text = element_text(size=rel(1.75)))+
       coord_flip()
@@ -645,21 +646,21 @@ server <- function(input, output,session) {
     updateSelectInput(session, 'degree_incident_2', selected= input$degree_incident_2, choices =c(sort(unique(as.character(data$degree_of_injury)))))
 
     output$plot_incident_insight_pie <- renderPlotly({
-      
-      
     df <- data4 
     df <- df[df$incident_type ==input$degree_incident,]
     df <- df[df$degree_of_injury ==input$degree_incident_2,]
-    df<- aggregate(no_of_injuries ~ industry, df, sum)
+    
+    df<- if (nrow(df)>0) aggregate(no_of_injuries ~ industry, df, sum) else df
+    validate(
+      need( nrow(df) > 0, "There's no relevent data under these selections")
+    )
     df<- df[order(df$no_of_injuries,decreasing = TRUE),]
     df$industry<- factor(df$industry, levels = df$industry)
-
-
-
-
+    
       fig_2_2 <- plot_ly(df, labels = ~industry, values = ~no_of_injuries, 
           type = "pie",
-          marker = list(colors = gray.colors(length(df$industry)))
+          marker = list(colors = gray.colors(length(df$industry))),
+          hovertemplate = "<br> %{percent} of Selected Incident Type is from %{label} Industry</br> Total Cases of Incidents: %{value}"
           )
       fig_2_2 <- fig_2_2 %>% layout(
           
@@ -720,7 +721,7 @@ server <- function(input, output,session) {
     names(res)<-to_upper_camel_case(names(res), sep_out = " ")
     row.names(res)<-to_upper_camel_case(row.names(res), sep_out = " ")
     matrix_plot<- ggcorrplot(res, method ="square",
-                              colors = c("#181818", "white", "#ec0d0d"))  
+                              colors = c("#181818", "white", "#ec0d0d"),title='Correlation of Injury With Incident Agent')  
     matrix_plot<- matrix_plot + theme(axis.text.x = element_blank(),axis.ticks.x = element_blank(),
                                       axis.text.y = element_blank(),axis.ticks.y = element_blank(),
                                       legend.position="none")                             
@@ -770,7 +771,7 @@ server <- function(input, output,session) {
       row.names(corre)<-to_upper_camel_case(row.names(corre), sep_out = " ")
       
         matrix_plot<- ggcorrplot(corre, method ="square",
-                                  colors = c("#181818", "white", "#ec0d0d")) 
+                                  colors = c("#181818", "white", "#ec0d0d"),title='Correlation of Injury With Incident Agent Sub Type') 
         matrix_plot<- matrix_plot + theme(axis.text.x = element_blank(),axis.ticks.x = element_blank()) 
         ggplotly(matrix_plot, height=400)
       } 
