@@ -3,6 +3,9 @@ xsmall {
   font-size: 18pt;
   line-height: 0.7;
 }
+.exclaim .reveal .state-background { 
+  background-color: #FFFFEA;
+}
 </style>
 
 ========================================================
@@ -22,11 +25,11 @@ div.white { background-color:#ffffff; border-radius: 5px; padding: 20px; opacity
 </style>
 <div class = "white">
 Analysis of Workplace Risk<br>
-<br />
+<br/>
 WQD7001 Group Assignment
-<br />
+<br/>
 Group C (Cyber Native)<br>
-<br />
+<br/>
   - Clement Lee &nbsp S2128268<br>
   - Lee Mun Mun &nbsp S2112842<br>
   - Lee Ying Qiu &nbsp 17108552<br>
@@ -35,9 +38,9 @@ Group C (Cyber Native)<br>
   - Tey Yi Jie &nbsp 17081752<br>
 </div>
 
-Introduction 
+Introduction
 ========================================================
-type:prompt
+type:exclaim
 
 **About the App**<br>
 <xsmall>An interactive Shiny application with several graphs that visualize the relative risks of the industries and the incident agents that cause injuries at workplace.</xsmall>
@@ -47,7 +50,7 @@ type:prompt
 
 Project Questions and Objectives
 ========================================================
-type:prompt
+type:exclaim
 
 **Key Questions**<br>
 <xsmall>1. Which industries have highest number of workplace injuries?</xsmall><br>
@@ -63,7 +66,7 @@ type:prompt
 
 Data Science Process
 ========================================================
-type:prompt
+type:exclaim
 
 **1. Asking a Question**<br>
 <xsmall>Do employees know enough about the risks in the workplace?</xsmall><br>
@@ -72,7 +75,7 @@ type:prompt
 **3. Cleaning Data**<br>
 <xsmall>The obtained data is cleaned. Additional dummy variables for categorical variable are being derived.</xsmall><br>
 **4. Analysing Data**<br>
-<xsmall>Exploratory data analysis - plotting and filtering the number of injuries based on industries, degrees injury, incident agents and correlation features.</xsmall><br>
+<xsmall>Exploratory data analysis - plotting and filtering the number of injuries based on industries, degrees injury, incident agents and correlation features with incident agents.</xsmall><br>
 **5. Presenting Data**<br>
 <xsmall>Preview of our Shiny App:-</xsmall><br>
 <xsmall>- [Shiny App](https://aniyeap.shinyapps.io/analysis_of_work_place_risk/)</xsmall><br>
@@ -80,7 +83,7 @@ type:prompt
 
 Features
 ========================================================
-type:prompt
+type:exclaim
 
 **User Guide**<br>
 <small>It comes with the following features:-</small><br>
