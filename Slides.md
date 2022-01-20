@@ -1,0 +1,92 @@
+<style>
+xsmall { 
+  font-size: 18pt;
+  line-height: 0.7;
+}
+</style>
+
+========================================================
+transition:rotate
+css: css-file.css
+<style>
+/* Your other css */
+.section .reveal .state-background {
+    background: url(https://www.hrdept.co.uk/wp-content/uploads/2019/10/Wet-Floor-Hazard.jpg);
+    background-position: center center;
+    background-attachment: fixed;
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+    opacity: 0.5;
+}
+div.white { background-color:#ffffff; border-radius: 5px; padding: 20px; opacity: 0.6;font-weight: bold; position: absolute; top: 20%; width: 100%;}
+</style>
+<div class = "white">
+Analysis of Workplace Risk<br>
+<br />
+WQD7001 Group Assignment
+<br />
+Group C (Cyber Native)<br>
+<br />
+  - Clement Lee &nbsp S2128268<br>
+  - Lee Mun Mun &nbsp S2112842<br>
+  - Lee Ying Qiu &nbsp 17108552<br>
+  - Ng Sin Yu &nbsp S2111068<br>
+  - Siti Nur Ani Yeap &nbsp 17218658<br>
+  - Tey Yi Jie &nbsp 17081752<br>
+</div>
+
+Introduction 
+========================================================
+type:prompt
+
+**About the App**<br>
+<xsmall>An interactive Shiny application with several graphs that visualize the relative risks of the industries and the incident agents that cause injuries at workplace.</xsmall>
+
+**Problem Statement**<br>
+<xsmall>Employees quit for a variety of reasons. One of the main reasons is an unsafe work environment. In addition to compensating employees fairly, and treating them with a sense of dignity and equality, employers are obligated to maintain a safe workplace for their employees, so that they can focus on their job responsibilities rather than worrying about the work environment. However, many employers fail to do so, and employees are injured every year as a result. According to the International Labour Organisation, a worker dies every 15 seconds from a work-related accident or disease around the world. A work environment that is unsafe not only can cause significant disruption and cost to both employer and employee, but also put employer at risk of workplace morale, productivity, turnover, and reputation.</xsmall>
+
+Project Questions and Objectives
+========================================================
+type:prompt
+
+**Key Questions**<br>
+<xsmall>1. Which industries have highest number of workplace injuries?</xsmall><br>
+<xsmall>2. Which industries have highest number of fatal and major workplace injuries?</xsmall><br>
+<xsmall>3. What are the most common incident types/agents that cause injuries?</xsmall><br>
+<xsmall>4. What are the correlation features between the incident agents and number of injuries?</xsmall><br>
+
+**Objectives**<br>
+<xsmall>1. Identify workplace risk of injuries and determine whether an employee may be at risk.</xsmall><br>
+<xsmall>2. Provide an early warning signal to both employer and employee especially industries with disproportionately high fatality rates.</xsmall><br>
+<xsmall>3. Establish a safe workplace for long term measure.</xsmall><br>
+<xsmall>4. Protect employer's most valuable asset which is the employees.</xsmall><br>
+
+Data Science Process
+========================================================
+type:prompt
+
+**1. Asking a Question**<br>
+<xsmall>Do employees know enough about the risks in the workplace?</xsmall><br>
+**2. Finding Data & Getting Data**<br>
+<xsmall>The dataset was obtained from data source - [data.gov.sg](https://data.gov.sg/dataset/workplace-injuries-annual), annual workplace injuries published by Ministry of Manpower of Singapore. The raw data consisted of 26,332 observations and 7 columns.</xsmall><br>
+**3. Cleaning Data**<br>
+<xsmall>The obtained data is cleaned. Additional dummy variables for categorical variable are being derived.</xsmall><br>
+**4. Analysing Data**<br>
+<xsmall>Exploratory data analysis - plotting and filtering the number of injuries based on industries, degrees injury, incident agents and correlation features.</xsmall><br>
+**5. Presenting Data**<br>
+<xsmall>Preview of our Shiny App:-</xsmall><br>
+<xsmall>- [Shiny App](https://aniyeap.shinyapps.io/analysis_of_work_place_risk/)</xsmall><br>
+<xsmall>- [Code](https://github.com/aniyeap/analysis_of_work_place_risk)</xsmall><br>
+
+Features
+========================================================
+type:prompt
+
+**User Guide**<br>
+<small>It comes with the following features:-</small><br>
+<small>1. Dashboard</small><br>
+<xsmall>This tab sets out the basic info of the app, which are title, domain, data source, data info, objectives and problem statement.</xsmall><br><br>
+<small>2. Risk Insight</small><br>
+<xsmall>This tab shows the basic info of the data, such as number of observation, total injuries cases, dataset time period and attributes. It also consists of 4 tabsets which show the graph for exploratory data analysis.</xsmall><br><br>
+<small>3. Explore Risk</small><br>
+<xsmall>This tab allows users to select industry, work activity and work tool to explore risk by year, injury level, and past incident. It also allows user to download dataset in several formats, such as csv, xlsx and pdf.</xsmall><br><br>
