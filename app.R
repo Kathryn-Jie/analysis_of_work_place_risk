@@ -25,7 +25,7 @@ data <- read.csv("data.csv",stringsAsFactors = TRUE)
 df <- data.frame(data)
 
 ui <- dashboardPage(skin = "black",
-                    dashboardHeader(),
+                    dashboardHeader(title = "Explorisk"),
                     dashboardSidebar(
                       sidebarMenu(
                         menuItem("Dashboard", tabName = "dash_tab", icon = icon("home")),
@@ -137,7 +137,7 @@ ui <- dashboardPage(skin = "black",
                                                ),
 
                                       tabPanel("View the Data", 
-                                        DT::dataTableOutput('data_view_dt')
+                                        DT::dataTableOutput('data_view_dt'), style = "overflow-x:scroll;"
                                       )
                                       
                                     
