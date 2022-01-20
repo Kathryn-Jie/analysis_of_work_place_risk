@@ -24,7 +24,7 @@ It consists 3 tabs, which are:
 Link to Data:<a href="https://data.gov.sg/dataset/workplace-injuries-annual"> Workplace Injuries by Industry and Incident Types Dataset</a>
 
 ### Remarks
-Shiny app code: app.R
-Original data: workplace-injuries-by-industry-and-incident-types.csv
-Cleaned data: data.csv
+Shiny app code: app.R <br>
+Original data: workplace-injuries-by-industry-and-incident-types.csv <br>
+Cleaned data: data.csv <br>
 Slides code: Slides.Rpres
