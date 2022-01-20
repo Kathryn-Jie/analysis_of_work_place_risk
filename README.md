@@ -1,4 +1,4 @@
-# Analysis of Workplace Risk
+# Explorisk -- Analysis of Workplace Risk
 ## WQD7001 Group Assignment
 ### Group C (Cyber Native): Clement Lee, Lee Mun Mun, Lee Ying Qiu, Ng Sin Yu, Siti Nur Ani Yeap, Tey Yi Jie
 
@@ -11,7 +11,8 @@ People often enter their industries based on career prospects, monetary and educ
 ### About The App
 It is an interactive Shiny application with several visualization graphs that perform the relative risks of the industries and the incident agents that causes injuries.
 
-Link to App: <a href="https://aniyeap.shinyapps.io/analysis_of_work_place_risk/"> Shiny App</a>
+Link to App: <a href="https://aniyeap.shinyapps.io/analysis_of_work_place_risk/"> Explorisk App </a> <br>
+Link to Slides: <a href="https://rpubs.com/Tey_Yi_Jie/856985"> Explorisk Slides </a>
 
 ### Features
 It consists 3 tabs, which are:
@@ -23,3 +24,7 @@ It consists 3 tabs, which are:
 Link to Data:<a href="https://data.gov.sg/dataset/workplace-injuries-annual"> Workplace Injuries by Industry and Incident Types Dataset</a>
 
 ### Remarks
+Shiny app code: app.R <br>
+Original data: workplace-injuries-by-industry-and-incident-types.csv <br>
+Cleaned data: data.csv <br>
+Slides code: Slides.Rpres
