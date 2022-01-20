@@ -11,7 +11,7 @@ People often enter their industries based on career prospects, monetary and educ
 ### About The App
 It is an interactive Shiny application with several visualization graphs that perform the relative risks of the industries and the incident agents that causes injuries.
 
-Link to App: <a href="https://aniyeap.shinyapps.io/analysis_of_work_place_risk/"> Explorisk App </a>
+Link to App: <a href="https://aniyeap.shinyapps.io/analysis_of_work_place_risk/"> Explorisk App </a> <br>
 Link to Slides: <a> Explorisk Slides </a>
 
 ### Features
