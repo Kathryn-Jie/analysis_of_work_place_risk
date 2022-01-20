@@ -3,11 +3,20 @@ xsmall {
   font-size: 18pt;
   line-height: 0.7;
 }
+.exclaim .reveal .state-background { 
+  background-color: #FFFFEA;
+}
+
+p {
+  text-align: justify;
+}
 </style>
 
 ========================================================
 transition:rotate
 css: css-file.css
+font-family: Helvetica;
+
 <style>
 /* Your other css */
 .section .reveal .state-background {
@@ -18,15 +27,16 @@ css: css-file.css
     background-size: 100% 100%;
     opacity: 0.5;
 }
-div.white { background-color:#ffffff; border-radius: 5px; padding: 20px; opacity: 0.6;font-weight: bold; position: absolute; top: 20%; width: 100%;}
+div.white { background-color:#ffffff; border-radius: 5px; padding: 20px; opacity: 0.7;font-weight: bold; position: absolute; top: 10%; width: 100%;}
 </style>
 <div class = "white">
-Analysis of Workplace Risk<br>
-<br />
+Title: Analysis of Workplace Risk<br>
+App: Explorisk<br>
+<br/>
 WQD7001 Group Assignment
-<br />
+<br/>
 Group C (Cyber Native)<br>
-<br />
+<br/>
   - Clement Lee &nbsp S2128268<br>
   - Lee Mun Mun &nbsp S2112842<br>
   - Lee Ying Qiu &nbsp 17108552<br>
@@ -35,19 +45,19 @@ Group C (Cyber Native)<br>
   - Tey Yi Jie &nbsp 17081752<br>
 </div>
 
-Introduction 
+Introduction
 ========================================================
-type:prompt
+type:exclaim
 
 **About the App**<br>
-<xsmall>An interactive Shiny application with several graphs that visualize the relative risks of the industries and the incident agents that cause injuries at workplace.</xsmall>
+<xsmall>Explorisk is an interactive Shiny application with several graphs that visualize the relative risks of the industries and the incident agents that cause injuries at workplace.</xsmall>
 
 **Problem Statement**<br>
 <xsmall>Employees quit for a variety of reasons. One of the main reasons is an unsafe work environment. In addition to compensating employees fairly, and treating them with a sense of dignity and equality, employers are obligated to maintain a safe workplace for their employees, so that they can focus on their job responsibilities rather than worrying about the work environment. However, many employers fail to do so, and employees are injured every year as a result. According to the International Labour Organisation, a worker dies every 15 seconds from a work-related accident or disease around the world. A work environment that is unsafe not only can cause significant disruption and cost to both employer and employee, but also put employer at risk of workplace morale, productivity, turnover, and reputation.</xsmall>
 
 Project Questions and Objectives
 ========================================================
-type:prompt
+type:exclaim
 
 **Key Questions**<br>
 <xsmall>1. Which industries have highest number of workplace injuries?</xsmall><br>
@@ -56,14 +66,14 @@ type:prompt
 <xsmall>4. What are the correlation features between the incident agents and number of injuries?</xsmall><br>
 
 **Objectives**<br>
-<xsmall>1. Identify workplace risk of injuries and determine whether an employee may be at risk.</xsmall><br>
-<xsmall>2. Provide an early warning signal to both employer and employee especially industries with disproportionately high fatality rates.</xsmall><br>
-<xsmall>3. Establish a safe workplace for long term measure.</xsmall><br>
-<xsmall>4. Protect employer's most valuable asset which is the employees.</xsmall><br>
+<xsmall>1. To identify workplace risk of injuries and determine whether an employee may be at risk.</xsmall><br>
+<xsmall>2. To provide an early warning signal to both employer and employee especially industries with disproportionately high fatality rates.</xsmall><br>
+<xsmall>3. To establish a safe workplace for long term measure.</xsmall><br>
+<xsmall>4. To protect employer's most valuable asset which is the employees.</xsmall><br>
 
 Data Science Process
 ========================================================
-type:prompt
+type:exclaim
 
 **1. Asking a Question**<br>
 <xsmall>Do employees know enough about the risks in the workplace?</xsmall><br>
@@ -72,18 +82,18 @@ type:prompt
 **3. Cleaning Data**<br>
 <xsmall>The obtained data is cleaned. Additional dummy variables for categorical variable are being derived.</xsmall><br>
 **4. Analysing Data**<br>
-<xsmall>Exploratory data analysis - plotting and filtering the number of injuries based on industries, degrees injury, incident agents and correlation features.</xsmall><br>
+<xsmall>Exploratory data analysis - plotting and filtering the number of injuries based on industries, degrees injury, incident agents and correlation features with incident agents.</xsmall><br>
 **5. Presenting Data**<br>
-<xsmall>Preview of our Shiny App:-</xsmall><br>
+<xsmall>Preview of our Shiny App:</xsmall><br>
 <xsmall>- [Shiny App](https://aniyeap.shinyapps.io/analysis_of_work_place_risk/)</xsmall><br>
 <xsmall>- [Code](https://github.com/aniyeap/analysis_of_work_place_risk)</xsmall><br>
 
 Features
 ========================================================
-type:prompt
+type:exclaim
 
 **User Guide**<br>
-<small>It comes with the following features:-</small><br>
+<small>It comes with the following features:</small><br>
 <small>1. Dashboard</small><br>
 <xsmall>This tab sets out the basic info of the app, which are title, domain, data source, data info, objectives and problem statement.</xsmall><br><br>
 <small>2. Risk Insight</small><br>
