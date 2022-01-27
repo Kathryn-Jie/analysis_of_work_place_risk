@@ -27,7 +27,7 @@ font-family: Helvetica;
     background-size: 100% 100%;
     opacity: 0.5;
 }
-div.white { background-color:#ffffff; border-radius: 5px; padding: 20px; opacity: 0.7;font-weight: bold; position: absolute; top: 10%; width: 100%;}
+div.white { background-color:#ffffff; border-radius: 5px; padding: 20px; opacity: 0.7;font-weight: bold; position: absolute; top: 5%; width: 100%;}
 </style>
 <div class = "white">
 Title: Analysis of Workplace Risk<br>
@@ -43,6 +43,8 @@ Group C (Cyber Native)<br>
   - Ng Sin Yu &nbsp S2111068<br>
   - Siti Nur Ani Yeap &nbsp 17218658<br>
   - Tey Yi Jie &nbsp 17081752<br>
+<br>
+Date of Presentation: 29th Jan 2022
 </div>
 
 Introduction
@@ -93,10 +95,11 @@ Features
 type:exclaim
 
 **User Guide**<br>
-<small>It comes with the following features:</small><br>
-<small>1. Dashboard</small><br>
-<xsmall>This tab sets out the basic info of the app, which are title, domain, data source, data info, objectives and problem statement.</xsmall><br><br>
-<small>2. Risk Insight</small><br>
-<xsmall>This tab shows the basic info of the data, such as number of observation, total injuries cases, dataset time period and attributes. It also consists of 4 tabsets which show the graph for exploratory data analysis.</xsmall><br><br>
-<small>3. Explore Risk</small><br>
-<xsmall>This tab allows users to select industry, work activity and work tool to explore risk by year, injury level, and past incident. It also allows user to download dataset in several formats, such as csv, xlsx and pdf.</xsmall><br><br>
+<xsmall>1. Dashboard: This tab sets out the basic info of the app, which are title, domain, data source, data info, objectives and problem statement.</xsmall><br>
+<xsmall>2. Risk Insight: This tab shows the basic info of the data, such as number of observation, total injuries cases, dataset time period and attributes. It also consists of 4 tabsets which show the graph for exploratory data analysis.</xsmall><br>
+<xsmall>3. Explore Risk: This tab allows users to select industry, work activity and work tool to explore risk by year, injury level, and past incident. It also allows user to download dataset in several formats, such as csv, xlsx and pdf.</xsmall><br>
+
+**Summary of Experience**<br>
+<xsmall>1. Lacking programming skill</xsmall><br>
+<xsmall>2. Slow-running Shiny app due to multiple graphs to be executed</xsmall><br>
+<xsmall>3. Barriers access to Malaysia open data</xsmall><br><br>
