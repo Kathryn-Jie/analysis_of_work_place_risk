@@ -10,6 +10,7 @@
 
 library(shiny)
 library(shinydashboard)
+library(shinyalert)
 library(ggplot2)
 library(dplyr)
 library(plotly)
@@ -25,7 +26,39 @@ data <- read.csv("data.csv",stringsAsFactors = TRUE)
 df <- data.frame(data)
 
 ui <- dashboardPage(skin = "black",
-                    dashboardHeader(title = "Explorisk"),
+                    dashboardHeader(title = "Explorisk",
+                                    dropdownMenu(type = "notifications",
+                                                 icon = icon("question-circle"),
+                                                 badgeStatus = NULL,
+                                              
+                                                 headerText ="Hello! Welcome to Explorisk!",
+                                                
+                                                 notificationItem(
+                                                   text = "Dashboard: To understand the basis of the app",
+                                                   icon = icon("home"),
+                                                   status="info"
+                                                 ),
+                                                 notificationItem(
+                                                   text = "Risk Insight: To perform exploratory data analysis",
+                                                   icon = icon("chart-bar"),
+                                                   status="info"
+                                                 ),
+                                                 notificationItem(
+                                                   text = "Explore Risk: To view your customize work risk ",
+                                                   icon = icon("compass"),
+                                                   status="info"
+                                                 ),
+                                                 notificationItem(
+                                                   text = "Navigate each section from the sidebar",
+                                                   icon = icon("arrow-left"),
+                                                   status="danger"
+                                                 )
+                                    )
+                                    ),
+                    
+                 
+               
+                    
                     dashboardSidebar(
                       sidebarMenu(
                         menuItem("Dashboard", tabName = "dash_tab", icon = icon("home")),
@@ -38,7 +71,7 @@ ui <- dashboardPage(skin = "black",
                     
                     dashboardBody(
                       tags$head(tags$style(HTML(
-                                '.skin-black .main-header .navbar{
+                        '.skin-black .main-header .navbar{
                                   background-color: #222d32;
                                 }
 
@@ -99,10 +132,42 @@ ui <- dashboardPage(skin = "black",
                                 .fa-check-circle{
                                   margin-top: 10px!important;
                                 }
+                                
+                                .fa-question-circle{
+                                color: lightgrey!important;
+                                }
+                                
+                                .navbar-nav>.messages-menu>.dropdown-menu>li .menu>li>a,
+                                .navbar-nav>.notifications-menu>.dropdown-menu>li .menu>li>a,
+                                .navbar-nav>.tasks-menu>.dropdown-menu>li .menu>li>a{
+                                
+                                white-space:normal!important;
+                                }
+                                
+                                .navbar-nav>.messages-menu>.dropdown-menu>li .menu, 
+                                .navbar-nav>.notifications-menu>.dropdown-menu>li .menu, 
+                                .navbar-nav>.tasks-menu>.dropdown-menu>li .menu {
+                                overflow-x: visible!important;
+                                }
+                                
+                                .navbar-custom-menu>.navbar-nav>li>.dropdown-menu {
+                                height:400px!important;
+                                }
+                                
+                                
+                                
+                                
+                                
+                                
+                                
+                                
+                                
+                        
 
                                 '
-                                ))),
-
+                      ))),
+                      
+                   
                       tabItems(
                         
                         # Second tab content
@@ -115,9 +180,9 @@ ui <- dashboardPage(skin = "black",
                                     selectInput("input_activity", "2. Select Your Work Activity", choices =  c("All",sort(unique(as.character(data$sub_industry))))),
                                     selectInput("input_tool", "3. Select Your Work Tool", choices =  c("All",sort(unique(as.character(data$incident_agent_sub_type))))),
                                     actionButton("reset_button", "Reset")
-
+                                    
                                   ),
-
+                                  
                                   box(
                                     width=9,
                                     tabBox(
@@ -125,24 +190,24 @@ ui <- dashboardPage(skin = "black",
                                       side = "left", height = "auto",
                                       selected = "Risk by Year",
                                       tabPanel("Risk by Year", 
-                                               plotlyOutput("plot_risk_year", width = "auto",height=800)
-                                               ),
+                                               plotlyOutput("plot_risk_year", width = "auto", height=570)
+                                      ),
                                       
                                       tabPanel("Risk by Level of Injury", 
                                                plotlyOutput("plot_risk_injury", width = "auto")
-                                               ),
+                                      ),
                                       
                                       tabPanel("Risk by Past Incident" , 
                                                plotlyOutput("plot_past_incident", width = "auto",height=800)
-                                               ),
-
+                                      ),
+                                      
                                       tabPanel("View the Data", 
-                                        DT::dataTableOutput('data_view_dt'), style = "overflow-x:scroll;"
+                                               DT::dataTableOutput('data_view_dt'),style = "overflow-x:scroll;"
                                       )
                                       
-                                    
+                                      
                                     ),
-                                    )
+                                  )
                                 )
                                 
                                 
@@ -154,47 +219,47 @@ ui <- dashboardPage(skin = "black",
                                   valueBoxOutput("info_injury",width=3),
                                   valueBoxOutput("info_period",width=3),
                                   valueBoxOutput("info_variable",width=3),
-
+                                  
                                   box(width=12, 
-                                  tabBox( width=12, 
-                                    tabPanel("Industrial Injury", 
-                                      column( width=12,
-                                      plotlyOutput("plot_industry_insight")
-                                      ),
-                                      ),
-                                    tabPanel("Degree of Injury", 
-                                      column( width=12,
-                                        plotlyOutput("plot_injury_insight",height =1000),
-                                      ),
-                                      h3(align="center" , "   "),
-                                      
-                                      box( width=12,
-                                        selectInput("degree_industry", "Refine Degree of Injury by Industry", choices =  c("Marine")),
-                                        plotlyOutput("plot_injury_insight_pie", inline=TRUE),
+                                      tabBox( width=12, 
+                                              tabPanel("Industrial Injury", 
+                                                       column( width=12,
+                                                               plotlyOutput("plot_industry_insight")
+                                                       ),
+                                              ),
+                                              tabPanel("Degree of Injury", 
+                                                       column( width=12,
+                                                               plotlyOutput("plot_injury_insight",height =1000),
+                                                       ),
+                                                       h3(align="center" , "   "),
+                                                       
+                                                       box( width=12,
+                                                            selectInput("degree_industry", "Refine Degree of Injury by Industry", choices =  c("Marine")),
+                                                            plotlyOutput("plot_injury_insight_pie", inline=TRUE),
+                                                       )
+                                                       
+                                              ),
+                                              tabPanel("Agency of Injury", height="auto",
+                                                       br(),
+                                                       plotlyOutput("plot_incident_type", width = "auto",height=1000),
+                                                       box(width=12),
+                                                       column( width=4,
+                                                               selectInput("degree_incident", "Refine Incident Type", choices =  c("Suffocation")),
+                                                       ),
+                                                       column( width=3,
+                                                               selectInput("degree_incident_2", "Refine Degree of Injury", choices =  c("Fatal")),
+                                                       ),
+                                                       plotlyOutput("plot_incident_insight_pie", inline=TRUE),
+                                              ),
+                                              tabPanel("Correlation of Injury", height=1000,
+                                                       br(),br(),
+                                                       plotlyOutput("plot_corr_sort_insight", width = "500", inline=TRUE),
+                                                       plotlyOutput("plot_corr_base_insight", width = "500", inline=TRUE),
+                                                       br(),br(),
+                                                       selectInput("incident_agent", "Refine correlation", choices =  c("Physical Workplace")),
+                                                       plotlyOutput("plot_corr_refined_insight", width = "auto")
+                                              ) 
                                       )
-
-                                      ),
-                                    tabPanel("Agency of Injury", height="auto",
-                                      br(),
-                                      plotlyOutput("plot_incident_type", width = "auto",height=1000),
-                                      box(width=12),
-                                      column( width=4,
-                                      selectInput("degree_incident", "Refine Incident Type", choices =  c("Suffocation")),
-                                      ),
-                                      column( width=3,
-                                      selectInput("degree_incident_2", "Refine Degree of Injury", choices =  c("Fatal")),
-                                      ),
-                                      plotlyOutput("plot_incident_insight_pie", inline=TRUE),
-                                      ),
-                                    tabPanel("Correlation of Injury", height=1000,
-                                      br(),br(),
-                                      plotlyOutput("plot_corr_sort_insight", width = "500", inline=TRUE),
-                                      plotlyOutput("plot_corr_base_insight", width = "500", inline=TRUE),
-                                      br(),br(),
-                                      selectInput("incident_agent", "Refine correlation", choices =  c("Physical Workplace")),
-                                      plotlyOutput("plot_corr_refined_insight", width = "auto")
-                                      ) 
-                                  )
                                   )
                                 )
                                 
@@ -204,44 +269,44 @@ ui <- dashboardPage(skin = "black",
                         tabItem(tabName ="dash_tab",
                                 fluidRow(
                                   column(width=12,
-
-                                    valueBoxOutput("info_title",width=3),
-                                    valueBoxOutput("info_domain",width=3),
-                                    valueBoxOutput("info_dtsource",width=3),
-                                    valueBoxOutput("info_dtfigure",width=3),
+                                         
+                                         valueBoxOutput("info_title",width=3),
+                                         valueBoxOutput("info_domain",width=3),
+                                         valueBoxOutput("info_dtsource",width=3),
+                                         valueBoxOutput("info_dtfigure",width=3),
                                   ),
                                   
                                   column(width=6,
-                                    box( width=12,height=60, align="center", h3("Objective")),
-                                    box( width=12,height=67,
-                                      column(width = 1,icon("check-circle")), 
-                                      column(width = 11,h5("Identify workplace risk of injuries and determine whether an employee may be at risk."))
-                                      ), 
-                                    box( width=12,height=67,
-                                      column(width = 1,icon("check-circle")), 
-                                      column(width = 11,h5("Provide an early warning signal to both employer and employee especially industries with disproportionately high fatality rates.")),
-                                      ),
-                                    box( width=12,height=67,
-                                      column(width = 1,icon("check-circle")), 
-                                      column(width = 11,h5("Establish a safe workplace for long term measure.")),
-                                      ),
-                                    box( width=12,height=67,
-                                      column(width = 1,icon("check-circle")), 
-                                      column(width = 11,h5("Protect employer’s most valuable asset which is the employees.")),
-                                      ),
+                                         box( width=12,height=60, align="center", h3("Objective")),
+                                         box( width=12,height=67,
+                                              column(width = 1,icon("check-circle")), 
+                                              column(width = 11,h5("Identify workplace risk of injuries and determine whether an employee may be at risk."))
+                                         ), 
+                                         box( width=12,height=67,
+                                              column(width = 1,icon("check-circle")), 
+                                              column(width = 11,h5("Provide an early warning signal to both employer and employee especially industries with disproportionately high fatality rates.")),
+                                         ),
+                                         box( width=12,height=67,
+                                              column(width = 1,icon("check-circle")), 
+                                              column(width = 11,h5("Establish a safe workplace for long term measure.")),
+                                         ),
+                                         box( width=12,height=67,
+                                              column(width = 1,icon("check-circle")), 
+                                              column(width = 11,h5("Protect employer’s most valuable asset which is the employees.")),
+                                         ),
                                   ),
                                   # ),
                                   column( width=6,
-                                    box( width=12,height=60, align="center", h3("Problem Statement")),
-                                    box( width=12,
-                                    h5("The main reasons employees quit, is an unsafe work environment."),
-                                    h5("Employers are obligated to maintain a safe workplace for their employees"),
-                                    h5("Employers also need to compensate employees fairly and treat them with a sense of dignity and equality"), 
-                                    h5("Thus, employee can focus on their job responsibilities and not worry about the work environment. "),
-                                    h5("However, many employers fail to do so, and employees are injured every year as a result. "),
-                                    h5("According to the International Labour Organisation, a worker dies every 15 seconds from a 
+                                          box( width=12,height=60, align="center", h3("Problem Statement")),
+                                          box( width=12,
+                                               h5("The main reasons employees quit, is an unsafe work environment."),
+                                               h5("Employers are obligated to maintain a safe workplace for their employees"),
+                                               h5("Employers also need to compensate employees fairly and treat them with a sense of dignity and equality"), 
+                                               h5("Thus, employee can focus on their job responsibilities and not worry about the work environment. "),
+                                               h5("However, many employers fail to do so, and employees are injured every year as a result. "),
+                                               h5("According to the International Labour Organisation, a worker dies every 15 seconds from a 
                                       work-related accident or disease around the world."),
-                                    h5("A work environment that is unsafe not only can cause significant disruption and 
+                                               h5("A work environment that is unsafe not only can cause significant disruption and 
                                     cost to both employer and employee, but also put employer at risk of 
                                     workplace morale, productivity, turnover, and reputation."))
                                   )
@@ -260,8 +325,7 @@ ui <- dashboardPage(skin = "black",
 server <- function(input, output,session) {
   
   
-  
-  
+
   data2<-data
   data3<-data
   data4<-data
@@ -291,14 +355,14 @@ server <- function(input, output,session) {
       color = "red"
     )
   })
-
+  
   output$info_dtfigure <- renderValueBox({
     valueBox(
       "Data Info", "Figures are victim-based", icon = icon("user-check"),
       color = "red"
     )
   })
-
+  
   
   
   
@@ -316,8 +380,8 @@ server <- function(input, output,session) {
       color = "red"
     )
   })
-
-    output$info_period <- renderValueBox({
+  
+  output$info_period <- renderValueBox({
     valueBox(
       "Time Period", paste0("2011-2018"), icon = icon("calendar-alt"),
       color = "red"
@@ -331,21 +395,21 @@ server <- function(input, output,session) {
       color = "red"
     )
   })
-
-
-
-
-  
-  
-
-
-
-
   
   
   
   
-
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
   
   
   
@@ -370,16 +434,16 @@ server <- function(input, output,session) {
     paste(strwrap(x, ...), collapse = "\n")
   }
   
-
+  
   observeEvent(input$reset_button, {
     
     updateSelectInput(session, 'input_industry',selected ="All" ,choices =  c("All",sort(unique(as.character(data$industry)))))
     updateSelectInput(session, 'input_activity',selected ="All" ,choices =  c("All",sort(unique(as.character(data$sub_industry)))))
     updateSelectInput(session, 'input_tool',selected ="All" ,choices =  c("All",sort(unique(as.character(data$incident_agent_sub_type)))) )
   })
-
   
-
+  
+  
   
   observeEvent(toListen(),{
     
@@ -388,7 +452,7 @@ server <- function(input, output,session) {
       updateSelectInput(session, 'input_activity', choices = "")
       updateSelectInput(session, 'input_tool', choices = "")
     }
-
+    
     if (input$input_industry != "All") {
       data2 <- data2[data2$industry  == input$input_industry,]
       title_ext<-paste(title_ext,"in",input$input_industry,"Industry" )
@@ -410,7 +474,7 @@ server <- function(input, output,session) {
     if (input$input_tool != "All") {
       data2 <- data2[data2$incident_agent_sub_type == input$input_tool,]
       title_ext<-paste(title_ext,"in which",input$input_tool,"As Incident Agent Sub Type" )
-     
+      
       updateSelectInput(session, 'input_industry', choices = input$input_industry)
       updateSelectInput(session, 'input_activity', choices = input$input_activity)
       updateSelectInput(session, 'input_tool', choices = input$input_tool)
@@ -421,31 +485,31 @@ server <- function(input, output,session) {
     
     title_ext<-wrapper(title_ext,100)
     #input_p <- to_snake_case(input$num_var_8)
-
-
+    
+    
     output$data_view_dt <- DT::renderDataTable(
-    DT::datatable({
+      DT::datatable({
+        
+        colnames(data2) <- c("Year","Degree Of Injury","Industry","Sub-Industry","Incident Type","Incident Agent","Incident Agent Sub Type","No of Injury")
+        data2
+      },
+      extensions = 'Buttons',
+      options = list(
+        searching = FALSE,
+        paging = TRUE,
+        #fixedColumns = TRUE,
+        #autoWidth = TRUE,
+        #ordering = FALSE,
+        dom = 'Bfrtip',
+        pageLength = if(nrow(data2)<10){nrow(data2)} else{'10'},
+        buttons = c('copy', 'csv', 'excel','pdf')
+      ),
       
-      colnames(data2) <- c("Year","Degree Of Injury","Industry","Sub-Industry","Incident Type","Incident Agent","Incident Agent Sub Type","No of Injury")
-      data2
-    },
-    extensions = 'Buttons',
-    options = list(
-      searching = FALSE,
-      paging = TRUE,
-      #fixedColumns = TRUE,
-      #autoWidth = TRUE,
-      #ordering = FALSE,
-      dom = 'Bfrtip',
-      pageLength = if(nrow(data2)<10){nrow(data2)} else{'10'},
-      buttons = c('copy', 'csv', 'excel','pdf')
-    ),
-    
-    class = "display"
-    
+      class = "display"
+      
+      )
+      
     )
-    
-  )
     data2
     
     output$plot_risk_year <- renderPlotly({
@@ -454,7 +518,7 @@ server <- function(input, output,session) {
       x_axis_labels <- min(df[,'year']):max(df[,'year'])
       
       bar_plt <- ggplot(df, aes_string(x = "year", y = data2$no_of_injuries, fill=as.factor("year")))+
-        geom_bar(stat="summary", fun=sum ) +
+        geom_bar(stat="summary", fun=sum , width = 0.5, ) +
         ylab("No of Injuries") +
         xlab("Year") +
         theme(text = element_text(size=theme.size),legend.position = "none")
@@ -472,16 +536,16 @@ server <- function(input, output,session) {
       df<- df[order(df$no_of_injuries,decreasing = TRUE),]
       df$degree_of_injury<- factor(df$degree_of_injury, levels = df$degree_of_injury)
       fig_2_2 <- plot_ly(df, labels = ~degree_of_injury, values = ~no_of_injuries, 
-          type = "pie",
-          marker = list(colors = gray.colors(3)),
-          hovertemplate = "<br>Percentage of %{label} Incidents: %{percent}</br>Total Number of %{label} Incidents: %{value}"
-          )
+                         type = "pie",
+                         marker = list(colors = gray.colors(3)),
+                         hovertemplate = "<br>Percentage of %{label} Incidents: %{percent}</br>Total Number of %{label} Incidents: %{value}"
+      )
       fig_2_2 <- fig_2_2 %>% layout(
-          
-          xaxis = list(showgrid = FALSE, zeroline = FALSE, showticklabels = FALSE),
-          yaxis = list(showgrid = FALSE, zeroline = FALSE, showticklabels = FALSE)
-         )
-
+        
+        xaxis = list(showgrid = FALSE, zeroline = FALSE, showticklabels = FALSE),
+        yaxis = list(showgrid = FALSE, zeroline = FALSE, showticklabels = FALSE)
+      )
+      
       fig_2_2
       
     })
@@ -511,51 +575,51 @@ server <- function(input, output,session) {
   
   
   
-
   
   
-
-
+  
+  
+  
   
   output$plot_industry_insight <- renderPlotly({
     
     
     df_3 <- data.frame(data)
-      df_3<- aggregate(no_of_injuries ~ industry, df_3, sum)
-      df_3<- df_3[order(df_3$no_of_injuries,decreasing = TRUE),]
-      df_3$industry<- factor(df_3$industry, levels = df_3$industry)
-
-
-      fig_3 <- plot_ly(df_3, y = ~industry, x = ~no_of_injuries, type = 'bar', 
-        marker = list( 
-        color =  "#bbbbbb"  
-        )
-      )
-
-      fig_3 <- fig_3 %>% layout(title = ' ', 
-        xaxis = list(title = 'No of Injuries'),
-        yaxis = list(title = 'Industry' ,tickwidth=5 ,tickcolor='white')
-         )
-
-      fig_3
-    })
-
+    df_3<- aggregate(no_of_injuries ~ industry, df_3, sum)
+    df_3<- df_3[order(df_3$no_of_injuries,decreasing = TRUE),]
+    df_3$industry<- factor(df_3$industry, levels = df_3$industry)
+    
+    
+    fig_3 <- plot_ly(df_3, y = ~industry, x = ~no_of_injuries, type = 'bar', 
+                     marker = list( 
+                       color =  "#bbbbbb"  
+                     )
+    )
+    
+    fig_3 <- fig_3 %>% layout(title = ' ', 
+                              xaxis = list(title = 'No of Injuries'),
+                              yaxis = list(title = 'Industry' ,tickwidth=5 ,tickcolor='white')
+    )
+    
+    fig_3
+  })
+  
   
   
   
   output$plot_injury_insight <- renderPlotly({
-   
-
+    
+    
     
     df_4 <- data4
     # df_4 <- prop.table(table(df_4[3:2]),1)*100
     df_4 <- aggregate(no_of_injuries~ industry + degree_of_injury, data=df_4, sum)
     df_4 <- transform(df_4, Freq = ave(no_of_injuries, industry, FUN = function(x) round(x/sum(x),3)*100))
     df_4 <- as.data.frame(df_4)
-
+    
     reorder_industry <- reorder_within(df_4$industry,df_4$Freq,df_4$degree_of_injury)
     # print(reorder_industry)
-
+    
     bar_plt <- ggplot(df_4, aes_string(x=reorder_industry, y = df_4$Freq ,fill=as.factor(df_4$degree_of_injury)))+
       theme_minimal() +
       theme(axis.text.y=element_text(size=rel(1.5)))+
@@ -570,14 +634,14 @@ server <- function(input, output,session) {
     ggplotly(bar_plt,tooltip = c('text'))
     
   })
-
-
-
+  
+  
+  
   
   observeEvent(input$degree_industry, {
-
+    
     updateSelectInput(session, 'degree_industry', selected= input$degree_industry, choices =c(sort(unique(as.character(data$industry)))))
-
+    
     output$plot_injury_insight_pie <- renderPlotly({
       
       df <- data4
@@ -586,27 +650,27 @@ server <- function(input, output,session) {
       df<- df[order(df$no_of_injuries,decreasing = TRUE),]
       df$degree_of_injury<- factor(df$degree_of_injury, levels = df$degree_of_injury)
       fig_2_2 <- plot_ly(df, labels = ~degree_of_injury, values = ~no_of_injuries, 
-          type = "pie",
-          marker = list(colors = c("#bbbbbb", "#181818","#ec0d0d")),
-          hovertemplate = "<br>Percentage of %{label} Incidents: %{percent}</br>Total Number of %{label} Incidents: %{value}"
-          )
+                         type = "pie",
+                         marker = list(colors = c("#bbbbbb", "#181818","#ec0d0d")),
+                         hovertemplate = "<br>Percentage of %{label} Incidents: %{percent}</br>Total Number of %{label} Incidents: %{value}"
+      )
       fig_2_2 <- fig_2_2 %>% layout(
-          
-          xaxis = list(showgrid = FALSE, zeroline = FALSE, showticklabels = FALSE),
-          yaxis = list(showgrid = FALSE, zeroline = FALSE, showticklabels = FALSE)
-         )
-
+        
+        xaxis = list(showgrid = FALSE, zeroline = FALSE, showticklabels = FALSE),
+        yaxis = list(showgrid = FALSE, zeroline = FALSE, showticklabels = FALSE)
+      )
+      
       fig_2_2
       
     })
   })
-
-
-
-
+  
+  
+  
+  
   
   output$plot_incident_type <- renderPlotly({
-
+    
     df_4 <- data4
     # df_4 <- prop.table(table(df_4[3:2]),1)*100
     df_4 <- aggregate(no_of_injuries~ incident_type+ degree_of_injury, data=df_4, sum)
@@ -614,7 +678,7 @@ server <- function(input, output,session) {
     df_4 <- as.data.frame(df_4)
     reorder_w<- reorder_within(df_4$incident_type,df_4$Freq,df_4$degree_of_injury)
     # print(reorder_industry)
-
+    
     bar_plt <- ggplot(df_4, aes_string(x=reorder_w, y = df_4$Freq ,fill=as.factor(df_4$degree_of_injury)))+
       theme_minimal() +
       theme(axis.text.y=element_text(size=rel(1.5)))+
@@ -628,67 +692,67 @@ server <- function(input, output,session) {
     bar_plt <- bar_plt + scale_fill_manual(values=c("#ec0d0d", "#181818","#bbbbbb"), name = NULL)
     ggplotly(bar_plt,tooltip = c('text')) 
   })
-
-
-
-
+  
+  
+  
+  
   toListen_incident <- reactive({
     list(
       input$degree_incident,
       input$degree_incident_2,
     )
   })
-
+  
   observeEvent(toListen_incident, {
-
-
+    
+    
     updateSelectInput(session, 'degree_incident', selected= input$degree_incident, choices =c(sort(unique(as.character(data$incident_type)))))
     updateSelectInput(session, 'degree_incident_2', selected= input$degree_incident_2, choices =c(sort(unique(as.character(data$degree_of_injury)))))
-
+    
     output$plot_incident_insight_pie <- renderPlotly({
-    df <- data4 
-    df <- df[df$incident_type ==input$degree_incident,]
-    df <- df[df$degree_of_injury ==input$degree_incident_2,]
-    
-    df<- if (nrow(df)>0) aggregate(no_of_injuries ~ industry, df, sum) else df
-    validate(
-      need( nrow(df) > 0, "There's no relevent data under these selections")
-    )
-    df<- df[order(df$no_of_injuries,decreasing = TRUE),]
-    df$industry<- factor(df$industry, levels = df$industry)
-    
+      df <- data4 
+      df <- df[df$incident_type ==input$degree_incident,]
+      df <- df[df$degree_of_injury ==input$degree_incident_2,]
+      
+      df<- if (nrow(df)>0) aggregate(no_of_injuries ~ industry, df, sum) else df
+      validate(
+        need( nrow(df) > 0, "There's no relevent data under these selections")
+      )
+      df<- df[order(df$no_of_injuries,decreasing = TRUE),]
+      df$industry<- factor(df$industry, levels = df$industry)
+      
       fig_2_2 <- plot_ly(df, labels = ~industry, values = ~no_of_injuries, 
-          type = "pie",
-          marker = list(colors = gray.colors(length(df$industry))),
-          hovertemplate = "<br> %{percent} of Selected Incident Type is from %{label} Industry</br> Total Cases of Incidents: %{value}"
-          )
+                         type = "pie",
+                         marker = list(colors = gray.colors(length(df$industry))),
+                         hovertemplate = "<br> %{percent} of Selected Incident Type is from %{label} Industry</br> Total Cases of Incidents: %{value}"
+      )
       fig_2_2 <- fig_2_2 %>% layout(
-          
-          xaxis = list(showgrid = FALSE, zeroline = FALSE, showticklabels = FALSE),
-          yaxis = list(showgrid = FALSE, zeroline = FALSE, showticklabels = FALSE)
-         )
-
+        
+        xaxis = list(showgrid = FALSE, zeroline = FALSE, showticklabels = FALSE),
+        yaxis = list(showgrid = FALSE, zeroline = FALSE, showticklabels = FALSE)
+      )
+      
       fig_2_2
       
     })
   })
-
-
-
   
-
-
-
-
+  
+  
+  
+  
+  
+  
+  
   output$plot_corr_base_insight <- renderPlotly({
     
     df_6<- df
     for(i in unique(df_6$incident_agent)){
       df_6[[to_snake_case(as.character(i))]]<-ifelse(df_6$incident_agent==as.character(i),df_6$no_of_injuries,0)  
     }
-   
+    
     df_6 <- df_6[, -c(1:7)]
-
+    
     data_class <- sapply(df_6, unclass) 
     res <- cor(data_class)
     res <- as.data.frame(res)
@@ -698,22 +762,22 @@ server <- function(input, output,session) {
     res_2<-res
     res_2<-res_2[1,]
     matrix_plot<- ggcorrplot(res_2, method ="square",
-                              colors = c("#181818", "white", "#ec0d0d"))   
+                             colors = c("#181818", "white", "#ec0d0d"))   
     matrix_plot<- matrix_plot + theme(axis.text.x = element_blank(),axis.ticks.x = element_blank(),) 
     ggplotly(matrix_plot,  width=500)
-
-   })
-
-
+    
+  })
+  
+  
   output$plot_corr_sort_insight <- renderPlotly({
     
     df_6_1<- df
     for(i in unique(df_6_1$incident_agent)){
       df_6_1[[to_snake_case(as.character(i))]]<-ifelse(df_6_1$incident_agent==as.character(i),df_6_1$no_of_injuries,0)  
     }
-   
+    
     df_6_1 <- df_6_1[, -c(1:7)]
-
+    
     data_class <- sapply(df_6_1, unclass) 
     res <- cor(data_class)
     res <- as.data.frame(res)
@@ -721,25 +785,25 @@ server <- function(input, output,session) {
     names(res)<-to_upper_camel_case(names(res), sep_out = " ")
     row.names(res)<-to_upper_camel_case(row.names(res), sep_out = " ")
     matrix_plot<- ggcorrplot(res, method ="square",
-                              colors = c("#181818", "white", "#ec0d0d"),title='Correlation of Injury With Incident Agent')  
+                             colors = c("#181818", "white", "#ec0d0d"),title='Correlation of Injury With Incident Agent')  
     matrix_plot<- matrix_plot + theme(axis.text.x = element_blank(),axis.ticks.x = element_blank(),
                                       axis.text.y = element_blank(),axis.ticks.y = element_blank(),
                                       legend.position="none")                             
     ggplotly(matrix_plot,  width=400)
-
-   })
-
-
-
-
+    
+  })
+  
+  
+  
+  
   observeEvent(input$incident_agent, {
     df_6_1<- df
     for(i in unique(df_6_1$incident_agent)){
       df_6_1[[to_snake_case(as.character(i))]]<-ifelse(df_6_1$incident_agent==as.character(i),df_6_1$no_of_injuries,0)  
     }
-   
+    
     df_6_1 <- df_6_1[, -c(1:7)]
-
+    
     data_class <- sapply(df_6_1, unclass) 
     res <- cor(data_class)
     res <- as.data.frame(res)
@@ -750,37 +814,37 @@ server <- function(input, output,session) {
     res_2<-res_2[1,]
     
     updateSelectInput(session, 'incident_agent',selected =input$incident_agent ,choices =  c(colnames(res_2)[colnames(res_2) != "No Of Injuries"]))    
-  
-
+    
+    
     output$plot_corr_refined_insight <- renderPlotly({
       df_6_2<- df
       df_6_2 <- df_6_2[df_6_2$incident_agent ==input$incident_agent,]
-
+      
       for(i in unique(df_6_2$incident_agent_sub_type)){
         df_6_2[[to_snake_case(as.character(i))]]<-ifelse(df_6_2$incident_agent_sub_type==as.character(i),df_6_2$no_of_injuries,0)  
       }
-     
+      
       df_6_2 <- df_6_2[, -c(1:7)]
-
+      
       data_class <- sapply(df_6_2, unclass)
       if(length(data_class)>1){ 
-      corre <- cor(data_class)
-      corre <- as.data.frame(corre)
-      corre <- corre[,order(corre$no_of_injuries)]
-      names(corre)<-to_upper_camel_case(names(corre), sep_out = " ")
-      row.names(corre)<-to_upper_camel_case(row.names(corre), sep_out = " ")
-      
+        corre <- cor(data_class)
+        corre <- as.data.frame(corre)
+        corre <- corre[,order(corre$no_of_injuries)]
+        names(corre)<-to_upper_camel_case(names(corre), sep_out = " ")
+        row.names(corre)<-to_upper_camel_case(row.names(corre), sep_out = " ")
+        
         matrix_plot<- ggcorrplot(corre, method ="square",
-                                  colors = c("#181818", "white", "#ec0d0d"),title='Correlation of Injury With Incident Agent Sub Type') 
+                                 colors = c("#181818", "white", "#ec0d0d"),title='Correlation of Injury With Incident Agent Sub Type') 
         matrix_plot<- matrix_plot + theme(axis.text.x = element_blank(),axis.ticks.x = element_blank()) 
         ggplotly(matrix_plot, height=400)
       } 
-   })
-
+    })
+    
   })
-
-
-
+  
+  
+  
   
   
   
