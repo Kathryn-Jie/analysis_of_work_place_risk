@@ -87,8 +87,8 @@ type:exclaim
 <xsmall>Exploratory data analysis - plotting and filtering the number of injuries based on industries, degrees of injury, incident agents and correlation features with incident agents.</xsmall><br>
 **5. Presenting Data**<br>
 <xsmall>Preview of our Shiny App:</xsmall><br>
-<xsmall>- [Shiny App](https://aniyeap.shinyapps.io/analysis_of_work_place_risk/)</xsmall><br>
-<xsmall>- [Code](https://github.com/aniyeap/analysis_of_work_place_risk)</xsmall><br>
+<xsmall>- Shiny App: [Explorisk](https://aniyeap.shinyapps.io/analysis_of_work_place_risk/)</xsmall><br>
+<xsmall>- Code: [https://github.com/aniyeap/analysis_of_work_place_risk](https://github.com/aniyeap/analysis_of_work_place_risk)</xsmall><br>
 
 Features and Summary
 ========================================================
