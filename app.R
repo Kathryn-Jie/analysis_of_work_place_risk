@@ -19,6 +19,7 @@ library(forcats)
 library(shinyjs)
 library(ggcorrplot)
 library(tidytext)
+library(RColorBrewer)
 
 
 
@@ -723,7 +724,8 @@ server <- function(input, output,session) {
       
       fig_2_2 <- plot_ly(df, labels = ~industry, values = ~no_of_injuries, 
                          type = "pie",
-                         marker = list(colors = gray.colors(length(df$industry))),
+                         marker = list(colors = colorRampPalette(brewer.pal(20,"RdYlBu"))(20)),
+                         #marker = list(colors = gray.colors(length(df$industry))),
                          hovertemplate = "<br> %{percent} of Selected Incident Type is from %{label} Industry</br> Total Cases of Incidents: %{value}"
       )
       fig_2_2 <- fig_2_2 %>% layout(
